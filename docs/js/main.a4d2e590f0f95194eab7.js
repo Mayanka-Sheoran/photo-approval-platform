@@ -15,7 +15,7 @@ webpackJsonp([0], [, , , function(t, e, a) { "use strict";
         r = t._self._c || e; return r("div", { attrs: { id: "app" } }, [r("img", { attrs: { src: a(12) } }), t._v(" "), r("router-view")], 1) },
     n = [],
     s = { render: r, staticRenderFns: n };
-  e.a = s }, function(t, e, a) { t.exports = a.p + "./assets/img/logo.82b9c7a.png" }, function(t, e, a) { "use strict"; var r = a(1),
+  e.a = s }, function(t, e, a) { t.exports = a.p + "../assets/img/logo.82b9c7a.png" }, function(t, e, a) { "use strict"; var r = a(1),
     n = a(14),
     s = a(15),
     u = a(19);
