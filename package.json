@@ -12,6 +12,7 @@
     "deploy": "node ./node_modules/vue-gh-pages/index.js"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "vue": "^2.4.2",
     "vue-cli-ghpages": "^1.0.0",
     "vue-gh-pages": "^1.6.4",

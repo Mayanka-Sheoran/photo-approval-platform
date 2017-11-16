@@ -2,7 +2,7 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <ul id="example-1">
-      <li v-for="item in items">
+      <li v-for="item in imagesLevelTwo">
         <img class='images' v-bind:src='item.image' v-on:click="selectImage" v-bind:class="{ active: isActive[item.name] }" />
       </li>
     </ul>
@@ -11,10 +11,10 @@
 </template>
 <script>
 export default {
-  name: 'One',
+  name: 'Two',
   data() {
     return {
-      msg: 'Page One',
+      msg: 'Page Two',
       selectImages: [],
       isActive: {
         legos: false,
@@ -43,8 +43,12 @@ export default {
           image: './src/assets/dog.png',
           name: 'dog'
         }
-      ]
+      ],
+      imagesLevelTwo: []
     };
+  },
+  created: function() {
+    this.getImages()
   },
   methods: {
     selectImage: function(event) {
@@ -52,18 +56,24 @@ export default {
         if ((event.target.src).indexOf(a.name) != -1) {
           this.isActive[a.name] = !this.isActive[a.name]
         }
-      })    
+      })
+
+    },
+    getImages: function() {
+      JSON.parse(window.localStorage.selectImages).map((item) => {
+        this.imagesLevelTwo.push(_.find(this.items, { name: item }))
+      })
     },
     approve: function() {
-    this.selectImages = []
-    Object.keys(this.isActive).map((item) => {
-      if(this.isActive[item] == true){
-        this.selectImages.push(item)
-      }
-    })
-    window.localStorage.setItem('selectImages', JSON.stringify(this.selectImages));
-    this.$router.push('/two')
-  }
+      this.selectImages = []
+      Object.keys(this.isActive).map((item) => {
+        if (this.isActive[item] == true) {
+          this.selectImages.push(item)
+        }
+      })
+      window.localStorage.setItem('selectImagesLevelTwo', JSON.stringify(this.selectImages));
+      this.$router.push('/three')
+    }
   },
 };
 
