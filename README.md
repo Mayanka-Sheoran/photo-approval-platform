@@ -1,7 +1,6 @@
-# vue-starter
+# photo-approval-platform
 
-> A Vue.js starter kit that lets you focus on more programming and less configruation.
-
+> A Vue.js web application that lets different levels of reviewers approve images which are then passed on to the next level.
 ## Build Setup
 
 ``` bash
@@ -21,6 +20,3 @@ npm run build --report
 # run unit tests
 npm run unit
 
-
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
-=======
