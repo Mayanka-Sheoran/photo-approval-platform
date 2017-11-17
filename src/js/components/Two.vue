@@ -3,7 +3,7 @@
     <h1>{{ msg }}</h1>
     <ul id="example-1">
       <li v-for="item in imagesLevelTwo">
-        <img v-on:click="showChat(item.name)" src='../../assets/chat.png' class='chat' />
+        <img v-if="comments[item.name]!==''" v-on:click="showChat(item.name)" src='../../assets/chat.png' class='chat' />
         <img class='images' v-bind:src='item.image' v-on:click="selectImage" v-bind:class="{ active: isActive[item.name] }" />
         <div v-if="showChatIcon[item.name]"><div class="tip"></div>
         <div id='speech-input'>{{comments[item.name]}}</div></div>
@@ -93,7 +93,6 @@ export default {
         this.imagesLevelTwo.push(_.find(this.items, { name: item.name }))
         this.comments[item.name] =  item.comment
       })
-      console.log(this.comments)
     },
     approve: function() {
       this.selectImages = []
