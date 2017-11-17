@@ -4,6 +4,8 @@ import Header from '../components/Header';
 import One from '../components/One';
 import Two from '../components/Two';
 import Three from '../components/Three';
+import Gallery from '../components/Gallery';
+import Login from '../components/Login'
 
 Vue.use(Router);
 
@@ -25,6 +27,13 @@ export default new Router({
        {
         path: 'three',
         component: Three
+      },
+       {
+        path: 'gallery',
+        component: Gallery
+      },{
+        path: 'login',
+        component: Login
       }]
     },
   ],

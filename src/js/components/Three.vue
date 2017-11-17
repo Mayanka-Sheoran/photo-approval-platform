@@ -6,7 +6,7 @@
         <img class='images' v-bind:src='item.image' v-on:click="selectImage" v-bind:class="{ active: isActive[item.name] }" />
       </li>
     </ul>
-    <button v-on:click="approve">Approve</button>
+    <button class='button' v-on:click="confirm">Approve</button>
   </div>
 </template>
 <script>
@@ -14,7 +14,7 @@ export default {
   name: 'Three',
   data() {
     return {
-      msg: 'Page Three',
+      msg: 'Click on a picture to approve',
       selectImages: [],
       isActive: {
         legos: false,
@@ -42,6 +42,14 @@ export default {
         {
           image: './src/assets/dog.png',
           name: 'dog'
+        },
+        {
+          image: './src/assets/woman.png',
+          name: 'woman'
+        },
+        {
+          image: './src/assets/hay.png',
+          name: 'hay'
         }
       ],
       imagesLevelTwo: []
@@ -71,7 +79,14 @@ export default {
           this.selectImages.push(item)
         }
       })
-      window.localStorage.setItem('selectImagesLevelTwo', JSON.stringify(this.selectImages));
+      window.localStorage.setItem('selectImagesLevelThree', JSON.stringify(this.selectImages));
+    },
+    confirm: function() {
+      this.$swal({
+        title: "Confirmation",
+        text: 'Are you sure you want to send the selected images to gallery ?',
+      })
+      this.approve()
     }
   },
 };
@@ -102,10 +117,24 @@ a {
   width: 270px;
   height: 270px;
   cursor: pointer;
+  margin: 20px;
 }
 
 .active {
-  border: solid 5px green;
+  border: solid 6px green;
+  padding: 6px;
+}
+
+.button {
+  width: 100px;
+  height: 35px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgb(213, 87, 96);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
 }
 
 </style>
