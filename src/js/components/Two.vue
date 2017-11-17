@@ -2,23 +2,19 @@
   <div class="hello">
     <h1>{{ msg }}</h1>
     <ul id="example-1">
-      <li v-for="item in items">
-        <img v-on:click="showChat(item.name)" src='../../assets/chat.png' class='chat' />
+      <li v-for="item in imagesLevelTwo">
+        <img v-if="comments[item.name]!==''" v-on:click="showChat(item.name)" src='../../assets/chat.png' class='chat' />
         <img class='images' v-bind:src='item.image' v-on:click="selectImage" v-bind:class="{ active: isActive[item.name] }" />
         <div v-if="showChatIcon[item.name]"><div class="tip"></div>
-        <input type="text" v-model="comments[item.name]" id='speech-input'></div>
+        <div id='speech-input'>{{comments[item.name]}}</div></div>
       </li>
     </ul>
     <button class='button' v-on:click="confirm">Approve</button>
   </div>
 </template>
 <script>
-import VueFullscreen from 'vue-fullscreen';
-import Vue from 'vue';
-import VueSweetAlert from 'vue-sweetalert';
-Vue.use(VueSweetAlert)
 export default {
-  name: 'One',
+  name: 'Two',
   data() {
     return {
       msg: 'Click on a picture to approve',
@@ -28,27 +24,7 @@ export default {
         vader: false,
         cricket: false,
         elephant: false,
-        dog: false,
-        woman: false,
-        hay: false
-      },
-      comments: {
-        legos: '',
-        vader: '',
-        cricket: '',
-        elephant: '',
-        dog: '',
-        woman: '',
-        hay: ''
-      },
-      showChatIcon: {
-        legos: false,
-        vader: false,
-        cricket: false,
-        elephant: false,
-        dog: false,
-        woman: false,
-        hay: false,
+        dog: false
       },
       items: [{
           image: './src/assets/legos.png',
@@ -78,8 +54,30 @@ export default {
           image: './src/assets/hay.png',
           name: 'hay'
         }
-      ]
+      ],
+      comments: {
+        legos: '',
+        vader: '',
+        cricket: '',
+        elephant: '',
+        dog: '',
+        woman: '',
+        hay: ''
+      },
+      showChatIcon: {
+        legos: false,
+        vader: false,
+        cricket: false,
+        elephant: false,
+        dog: false,
+        woman: false,
+        hay: false,
+      },
+      imagesLevelTwo: []
     };
+  },
+  created: function() {
+    this.getImages()
   },
   methods: {
     selectImage: function(event) {
@@ -88,18 +86,22 @@ export default {
           this.isActive[a.name] = !this.isActive[a.name]
         }
       })
+
+    },
+    getImages: function() {
+      JSON.parse(window.localStorage.selectImages).map((item) => {
+        this.imagesLevelTwo.push(_.find(this.items, { name: item.name }))
+        this.comments[item.name] =  item.comment
+      })
     },
     approve: function() {
       this.selectImages = []
       Object.keys(this.isActive).map((item) => {
         if (this.isActive[item] == true) {
-          let obj = {}
-          obj.name = item
-          obj.comment = this.comments[item]
-          this.selectImages.push(obj)
+          this.selectImages.push(item)
         }
       })
-      window.localStorage.setItem('selectImages', JSON.stringify(this.selectImages));
+      window.localStorage.setItem('selectImagesLevelTwo', JSON.stringify(this.selectImages));
     },
     confirm: function() {
       this.$swal({
@@ -108,7 +110,7 @@ export default {
       })
       this.approve()
     },
-    showChat: function(name) {
+     showChat: function(name) {
       this.showChatIcon[name] = !this.showChatIcon[name]
     }
   },
@@ -139,8 +141,8 @@ a {
 .images {
   width: 270px;
   height: 270px;
-  margin: 20px;
   cursor: pointer;
+  margin: 20px;
 }
 
 .active {
@@ -159,7 +161,6 @@ a {
   font-weight: bold;
   margin-top: 20px;
 }
-
 #speech-input {
   border: none;
   font-size: 2rem;
@@ -180,7 +181,7 @@ a {
   height: 24px;
   position: relative;
   bottom: -2px;
-  left: 245px;
+  left: 99px;
   top: -88px;
 
 }
@@ -196,9 +197,4 @@ a {
   width: 30px;
   position: absolute;
 }
-
-input:focus {
-  outline: none;
-}
-
 </style>
